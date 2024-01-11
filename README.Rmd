@@ -15,42 +15,41 @@ knitr::opts_chunk$set(
 
 # tidyTCGA
 
+> :warning: **Warning**: This project is in early development and is not ready for use. Please use with caution as major changes might occur.
+
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN status](https://www.r-pkg.org/badges/version/tidyTCGA)](https://CRAN.R-project.org/package=tidyTCGA)
 <!-- badges: end -->
 
-The goal of tidyTCGA is to ...
+tidyTCGA provides tidy interfaces to TCGA data 
 
 ## Installation
 
 You can install the development version of tidyTCGA like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+remotes::install_github('selkamand/tidyTCGA')
 ```
 
-## Example
+## Quick Start
 
-This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(tidyTCGA)
-## basic example code
+
+# List Available Datasets
+tcga_available()
+
+# Load Straight to Memory
+tcga_load_cohort_mutations('GBM')
+
+# Connect to dataset and filter based on our interests (less memory intensive)
+tcga_open_mutation_datasets() |>
+  dplyr::filter(Disease == "GBM", Silent == FALSE) |>
+  dplyr::collect()
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## Other packages
 
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this. You could also use GitHub Actions to re-render `README.Rmd` every time you push. An example workflow can be found here: <https://github.com/r-lib/actions/tree/v1/examples>.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+If interested in MAF files please see the TCGAmutations package
